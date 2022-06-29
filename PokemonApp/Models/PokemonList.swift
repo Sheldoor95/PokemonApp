@@ -24,15 +24,15 @@ struct Pokemon: Codable, Identifiable, Equatable {
 //    let results: [Move]
 //}
 //
-//struct Move: Codable, Identifiable {
-//    let id = UUID()
-//    var name: String
-//    var url: String
-//}
+struct Move: Codable, Identifiable {
+    let id = UUID()
+    var name: String
+    var url: String
+}
 
 struct DetailPokemon: Codable {
     let id: Int
-//    let moves: [String]?
+    let moves: [Move]
     let height: Int
     let weight: Int
 }

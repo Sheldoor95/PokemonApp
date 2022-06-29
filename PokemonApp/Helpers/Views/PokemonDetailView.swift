@@ -20,6 +20,8 @@ struct PokemonDetailView: View {
 //                Text("**Moves**: \(vm.pokemonDetails?.moves ?? nil )")
                 Text("**Weight**: \(vm.formatHW(value: vm.pokemonDetails?.weight ?? 0)) KG")
                 Text("**Height**: \(vm.formatHW(value: vm.pokemonDetails?.height ?? 0)) M")
+                
+//                ForEach(pokemon.)
             }
         }
         .onAppear {

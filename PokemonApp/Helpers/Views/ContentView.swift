@@ -17,19 +17,19 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: adaptiveColumns, spacing: 10) {
-                    ForEach(vm.filteredPokemon) { pokemon in
-                        NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
-                          PokemonView(pokemon: pokemon)
+                ScrollView {
+                    LazyVGrid(columns: adaptiveColumns, spacing: 10) {
+                        ForEach(vm.filteredPokemon) { pokemon in
+                            NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
+                              PokemonView(pokemon: pokemon)
+                            }
                         }
                     }
+                    .animation(.easeInOut(duration: 0.4), value: vm.filteredPokemon.count)
+                    .navigationTitle("Pokedex")
+                    .navigationBarTitleDisplayMode(.inline)
                 }
-                .animation(.easeInOut(duration: 0.4), value: vm.filteredPokemon.count)
-                .navigationTitle("Pokedex")
-                .navigationBarTitleDisplayMode(.inline)
-            }
-            .searchable(text: $vm.searchText)
+                .searchable(text: $vm.searchText)
         }
         .environmentObject(vm)
     }

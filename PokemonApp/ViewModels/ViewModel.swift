@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
+
 
 final class ViewModel: ObservableObject {
     private let pokemonManager = PokemonManager()
@@ -34,7 +34,7 @@ final class ViewModel: ObservableObject {
     func getDetails(pokemon: Pokemon) {
         let id = getPokemonIndex(pokemon: pokemon)
         
-        self.pokemonDetails = DetailPokemon(id: 0, height: 0, weight: 0)
+//        self.pokemonDetails = DetailPokemon(id: 0, moves: <#[Move]#>, height: 0, weight: 0)
         
         pokemonManager.getDetailedPokemon(id: id) { data in
             DispatchQueue.main.async {
@@ -51,15 +51,15 @@ final class ViewModel: ObservableObject {
     }
     
     func sortList() -> [Pokemon] {
-       let sortedFilteredPokemon = filteredPokemon.sorted {
+       let sortedPokemonList = pokemonList.sorted {
             $0.name.lowercased() < $1.name.lowercased()
         }
-        return sortedFilteredPokemon
+        return sortedPokemonList
     }
     func inverseSortList() -> [Pokemon] {
-        let inverseSortingFilteredPokemon =  filteredPokemon.sorted {
+        let inverseSortingPokemonList =  pokemonList.sorted {
             $0.name.lowercased() > $1.name.lowercased()
         }
-        return inverseSortingFilteredPokemon
+        return inverseSortingPokemonList
     }
 }
