@@ -20,10 +20,7 @@ struct Pokemon: Codable, Identifiable, Equatable {
     
     static var samplePokemon = Pokemon(name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4/")
 }
-//struct PokemonMoves: Codable {
-//    let results: [Move]
-//}
-//
+
 struct Move: Codable, Identifiable {
     let id = UUID()
     var name: String
@@ -32,7 +29,7 @@ struct Move: Codable, Identifiable {
 
 struct DetailPokemon: Codable {
     let id: Int
-    let moves: [Move]
+//    let moves: [Move]
     let height: Int
     let weight: Int
 }

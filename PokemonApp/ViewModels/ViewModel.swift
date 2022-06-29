@@ -34,7 +34,7 @@ final class ViewModel: ObservableObject {
     func getDetails(pokemon: Pokemon) {
         let id = getPokemonIndex(pokemon: pokemon)
         
-//        self.pokemonDetails = DetailPokemon(id: 0, moves: <#[Move]#>, height: 0, weight: 0)
+        //        self.pokemonDetails = DetailPokemon(id: 0, moves: <#[Move]#>, height: 0, weight: 0)
         
         pokemonManager.getDetailedPokemon(id: id) { data in
             DispatchQueue.main.async {
@@ -42,7 +42,7 @@ final class ViewModel: ObservableObject {
             }
         }
     }
-//Formatter for height and weight
+    //Formatter for height and weight
     func formatHW(value: Int) -> String {
         let dValue = Double(value)
         let string = String(format: "%.2f", dValue / 10)
@@ -50,16 +50,15 @@ final class ViewModel: ObservableObject {
         return string
     }
     
-    func sortList() -> [Pokemon] {
-       let sortedPokemonList = pokemonList.sorted {
-            $0.name.lowercased() < $1.name.lowercased()
+    func sortList(ascending: Bool = false) {
+        if !ascending {
+            self.pokemonList.sort {
+                $0.name.lowercased() < $1.name.lowercased()
+            }
+        } else {
+            self.pokemonList.sort {
+                $0.name.lowercased() > $1.name.lowercased()
+            }
         }
-        return sortedPokemonList
-    }
-    func inverseSortList() -> [Pokemon] {
-        let inverseSortingPokemonList =  pokemonList.sorted {
-            $0.name.lowercased() > $1.name.lowercased()
-        }
-        return inverseSortingPokemonList
     }
 }
