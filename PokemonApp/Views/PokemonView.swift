@@ -21,7 +21,7 @@ struct PokemonView: View {
                         .scaledToFit()
                         .frame(width: dimensions, height: dimensions)
                 }
-            }placeholder: {
+            } placeholder: {
                 ProgressView()
                     .frame(width: dimensions, height: dimensions)
             }

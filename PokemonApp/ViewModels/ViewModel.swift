@@ -14,14 +14,27 @@ final class ViewModel: ObservableObject {
     @Published var pokemonList = [Pokemon]()
     @Published var pokemonDetails: DetailPokemon?
     @Published var searchText = ""
+    @Published var selector = 0 {
+        didSet {
+            if selector == 0 {
+                sortList()
+            } else {
+                sortList(ascending: true)
+            }
+        }
+    }
     
+//   It's ok, the only case i should change it is if something change due to the refactoring
     var filteredPokemon: [Pokemon] {
         return searchText == "" ? pokemonList : pokemonList.filter {
             $0.name.contains(searchText.lowercased())
         }
     }
+    
+// FIXME: I have to fix data models
     init() {
-        self.pokemonList = pokemonManager.getPokemon()
+//        self.pokemonList = pokemonManager.getPokemon()
+        sortList()
     }
     
     func getPokemonIndex(pokemon: Pokemon) -> Int {
@@ -42,7 +55,7 @@ final class ViewModel: ObservableObject {
             }
         }
     }
-    //Formatter for height and weight
+    //Formatter for height and weight is ok
     func formatHW(value: Int) -> String {
         let dValue = Double(value)
         let string = String(format: "%.2f", dValue / 10)
@@ -50,6 +63,7 @@ final class ViewModel: ObservableObject {
         return string
     }
     
+//    This func is ok and i could reuse it changing something as consequence of the refactoring
     func sortList(ascending: Bool = false) {
         if !ascending {
             self.pokemonList.sort {

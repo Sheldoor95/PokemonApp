@@ -8,14 +8,40 @@
 import Foundation
 
 //An Easy Way to retrieve data in View Model
-
+//FIXME: I have to fix data models to require data from internet and not from local cache 
 class PokemonManager {
-    func getPokemon() -> [Pokemon] {
-        let data: PokemonList = Bundle.main.decodable(file: "pokemon.json")
-        let pokemon: [Pokemon] = data.results
-
-        return pokemon
+    //    func getPokemon() -> [Pokemon] {
+    //        var pokemonResult: PokemonList?
+    //        Bundle.main.fetchData(url: "https://pokeapi.co/api/v2/pokemon?limit=151", model: PokemonList.self) { data in
+    //            pokemonResult = data
+    //        } failure: { error in
+    //            print(error)
+    //        }
+    //        return pokemonResult!
+    //    }
+    //}
+    func getPokemon(completionHandler: @escaping ([Pokemon]) -> ()) {
+        
+        let jsonUrlString = "https://pokeapi.co/api/v2/pokemon?limit=151"
+        guard let url = URL(string: jsonUrlString) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            guard let data = data, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            do {
+                let _ : [Pokemon] = try JSONDecoder().decode([Pokemon].self, from: data)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
     }
+    
     
     func getDetailedPokemon(id: Int, _ completion: @escaping(DetailPokemon) -> ()) {
         Bundle.main.fetchData(url: "https://pokeapi.co/api/v2/pokemon/\(id)/", model: DetailPokemon.self) { data in
@@ -25,12 +51,4 @@ class PokemonManager {
             print(error)
         }
     }
-    
-//    func getPokemonMoves(id: Int, _ completion: (Move)) -> () {
-//        Bundle.main.fetchData(url: "https://pokeapi.co/api/v2/move/\(id)/", model: Move.self) { data in
-//            completion(data)
-//        } failure: { error in
-//            print(error)
-//        }
-//    }
 }

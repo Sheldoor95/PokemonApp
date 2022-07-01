@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var vm = ViewModel()
-    @State var selector = 0
-    
+ 
     private let adaptiveColumns = [
         GridItem(.adaptive(minimum: 150))
     ]
@@ -19,11 +18,12 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 ScrollView {
-                    Picker("Sort the list", selection: $selector) {
+                    Picker("Sort the list", selection: $vm.selector) {
                         Text("Alphabetical").tag(0)
                         Text("Reverse").tag(1)
                     }
                     .pickerStyle(.segmented)
+                    .padding()
                     LazyVGrid(columns: adaptiveColumns, spacing: 10) {
                         ForEach(vm.filteredPokemon) { pokemon in
                             NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
@@ -38,6 +38,7 @@ struct ContentView: View {
                 .searchable(text: $vm.searchText)
             }
         }
+        .navigationViewStyle(.stack)
         .environmentObject(vm)
     }
 }
