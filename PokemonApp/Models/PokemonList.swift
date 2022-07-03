@@ -11,6 +11,7 @@ import Foundation
 struct PokemonList: Codable {
     let count: Int
     let next: String
+//    let previuous: String
     let results: [Pokemon]
 }
 // MARK: - Pokemon
@@ -21,16 +22,11 @@ struct Pokemon: Codable, Identifiable, Equatable {
     
     static var samplePokemon = Pokemon(name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4/")
 }
-// MARK: - Move
-struct Move: Codable, Identifiable {
-    let id = UUID()
-    var name: String
-    var url: String
-}
+
 // MARK: - DetailPokemon
 struct DetailPokemon: Codable {
     let id: Int
-//    let moves: [MoveElement]
+    let moves: [MoveElement]
     let height: Int
     let weight: Int
 }
