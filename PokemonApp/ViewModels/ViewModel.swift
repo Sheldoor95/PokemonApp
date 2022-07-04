@@ -11,7 +11,8 @@ import Foundation
 final class ViewModel: ObservableObject {
     //    private let pokemonManager = PokemonManager()
     @Published var pokemonList = [Pokemon]()
-//    @Published var pokemonList2: PokemonList?
+    @Published var pokemonMoves: Moves?
+    @Published var pokemonMovesName = [Move]()
     @Published var pokemonDetails: DetailPokemon?
     @Published var searchText = ""
     @Published var selector = 0 {
@@ -57,6 +58,13 @@ final class ViewModel: ObservableObject {
         }
     }
     
+    func getMoves(pokemon: Pokemon) {
+        let id = getPokemonIndex(pokemon: pokemon)
+        
+        Task {
+            await getPokemonMoves(id: id)
+        }
+    }
     //Formatter for height and weight is ok
     func formatHW(value: Int) -> String {
         let dValue = Double(value)
@@ -95,7 +103,7 @@ extension ViewModel {
                 print("oh nooo")
             }
         } catch {
-            print("Data is't valid")
+            print("Data isn't valid")
         }
     }
     
@@ -114,7 +122,26 @@ extension ViewModel {
                 print("oh nooo 2")
             }
         } catch  {
-            print("Data is'n valid")
+            print("Data isn't valid")
+        }
+    }
+    
+    @MainActor
+    func getPokemonMoves(id: Int) async {
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else {
+            print("something doesn't work")
+            return
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            if let decoderResponse = try? JSONDecoder().decode(Moves.self, from: data) {
+                pokemonMovesName = decoderResponse.moves
+            } else {
+                print("I can't find moves")
+            }
+        } catch {
+            print("Data isn't valid")
         }
     }
 }

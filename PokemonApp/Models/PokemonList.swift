@@ -26,18 +26,40 @@ struct Pokemon: Codable, Identifiable, Equatable {
 // MARK: - DetailPokemon
 struct DetailPokemon: Codable {
     let id: Int
-    let moves: [MoveElement]
     let height: Int
     let weight: Int
 }
-// MARK: - MoveElement
-struct MoveElement: Codable {
-    let move: MoveLearnMethodClass
+
+////MARK: - Moves
+//struct Moves: Codable {
+//    var moves: [MoveElement]
+//}
+//
+//// MARK: - MoveElement
+//struct MoveElement: Codable {
+//    let move: MoveLearnMethodClass
+//    let versionGroupDetails: [VersionGroupDetail]
+//}
+//
+//// MARK: - MoveLearnMethodClass
+//struct MoveLearnMethodClass: Codable {
+//    var name: String
+//    let url: String
+//}
+//
+//// MARK: - VersionGroupDetail
+//struct VersionGroupDetail: Codable {
+//    let levelLearnedAt: Int
+//    let moveLearnMethod, versionGroup: MoveLearnMethodClass
+//}
+// MARK: - Moves
+struct Moves: Codable {
+    let moves: [Move]
     let versionGroupDetails: [VersionGroupDetail]
 }
 
-// MARK: - MoveLearnMethodClass
-struct MoveLearnMethodClass: Codable {
+// MARK: - Move
+struct Move: Codable {
     let name: String
     let url: String
 }
@@ -45,5 +67,5 @@ struct MoveLearnMethodClass: Codable {
 // MARK: - VersionGroupDetail
 struct VersionGroupDetail: Codable {
     let levelLearnedAt: Int
-    let moveLearnMethod, versionGroup: MoveLearnMethodClass
+    let moveLearnMethod, versionGroup: Move
 }
