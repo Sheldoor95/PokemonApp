@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @StateObject var vm = ViewModel()
- 
+    
     private let adaptiveColumns = [
         GridItem(.adaptive(minimum: 150))
     ]
