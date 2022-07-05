@@ -11,9 +11,9 @@ import Foundation
 final class ViewModel: ObservableObject {
     
     @Published var pokemonList = [Pokemon]()
-    //    @Published var pokemonMoves: Moves?
-    @Published var pokemonMovesName = [Move]()
     @Published var pokemonDetails: DetailPokemon?
+//    @Published var pokemonImage: PokemonSprites?
+//    @Published var pokemonSprite = ""
     @Published var searchText = ""
     @Published var selector = 0 {
         didSet {
@@ -33,7 +33,7 @@ final class ViewModel: ObservableObject {
     
     init() {
         Task {
-            await getPokemon()
+            await getPokemon(page: 1)
             sortList()
         }
     }
@@ -53,6 +53,7 @@ final class ViewModel: ObservableObject {
             await getDetailedPokemon(id: id)
         }
     }
+    
     
     //    func getMoves(pokemon: Pokemon) {
     //        let id = getPokemonIndex(pokemon: pokemon)
@@ -84,8 +85,8 @@ final class ViewModel: ObservableObject {
 
 extension ViewModel {
     
-    func getPokemon() async {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=151") else {
+    func getPokemon(page: Int) async {
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?page=\(page)") else {
             print("I can't fetch pokemon's data")
             return
         }
@@ -110,6 +111,8 @@ extension ViewModel {
             
             if let decoderResponse = try? JSONDecoder().decode(DetailPokemon.self, from: data) {
                 pokemonDetails = decoderResponse
+                //                pokemonImage = decoderResponse.sprites
+                //                pokemonImage?.front_default = pokemonSprite
                 //              pokemonMovesName = decoderResponse.moves
             } else {
                 print("oh nooo 2")
@@ -118,22 +121,4 @@ extension ViewModel {
             print("Data isn't valid")
         }
     }
-    
-    //    func getPokemonMoves(id: Int) async {
-    //        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemom/\(id)/") else {
-    //            print("something doesn't work")
-    //            return
-    //        }
-    //        do {
-    //            let (data, _) = try await URLSession.shared.data(from: url)
-    //
-    //            if let decoderResponse = try? JSONDecoder().decode(DetailPokemon.self, from: data) {
-    //                pokemonMovesName = decoderResponse.moves
-    //            } else {
-    //                print("I can't find moves")
-    //            }
-    //        } catch {
-    //            print("Data isn't valid")
-    //        }
-    //    }
 }

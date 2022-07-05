@@ -29,6 +29,12 @@ struct DetailPokemon: Codable {
     let weight: Int
 //    let moves: [Move]
     let species: Species
+    var sprites: PokemonSprites
+}
+
+//MARK: - PokemonSprites
+struct PokemonSprites: Codable {
+    var front_default: String
 }
 
 // MARK: - Move

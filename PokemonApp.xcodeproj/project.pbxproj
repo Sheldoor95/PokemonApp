@@ -29,6 +29,7 @@
 		1F42CB67286B6916003C9E9C /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		1F42CB69286B6CE6003C9E9C /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
 		1FDD9DFE2874516100B089FB /* PokemonImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImages.swift; sourceTree = "<group>"; };
+		1FDD9E002874A8ED00B089FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 		1F119EB0286A3E630073B7C2 /* PokemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				1FDD9E002874A8ED00B089FB /* Info.plist */,
 				1F119EB1286A3E630073B7C2 /* PokemonApp.swift */,
 				1F42CB66286B67E0003C9E9C /* Views */,
 				1F42CB60286B5DBD003C9E9C /* ViewModels */,
@@ -314,6 +316,7 @@
 				DEVELOPMENT_TEAM = R428Q53J74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -343,6 +346,7 @@
 				DEVELOPMENT_TEAM = R428Q53J74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
