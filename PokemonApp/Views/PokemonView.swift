@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PokemonView: View {
-    
     @EnvironmentObject var vm: ViewModel
     let pokemon: Pokemon
     let dimensions: Double = 140
@@ -33,6 +32,7 @@ struct PokemonView: View {
                 .font(.system(size: 15, weight: .regular, design: .monospaced))
                 .padding(.bottom, 20)
         }
+        
     }
 }
 

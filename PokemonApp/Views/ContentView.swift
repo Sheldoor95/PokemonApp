@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var vm = ViewModel()
+    @State private var page = 1
     
     private let adaptiveColumns = [
         GridItem(.adaptive(minimum: 150))
@@ -35,6 +36,23 @@ struct ContentView: View {
                     .animation(.easeInOut(duration: 0.4), value: vm.filteredPokemon.count)
                     .navigationTitle("Pokedex")
                     .navigationBarTitleDisplayMode(.inline)
+//                    .toolbar {
+//                        ToolbarItem(placement: .navigationBarLeading) {
+//                            self.page > 1 ?
+//                            Button("Previous") {
+//                                // previous func
+//                                self.page -= 1
+//                                self.vm.previousPage(page: self.page)
+//                            } : nil
+//                        }
+//                        ToolbarItem(placement: .navigationBarTrailing) {
+//                            Button("Next") {
+//                                // next func
+//                                self.page += 1
+//                                self.vm.nextPage(page: self.page)
+//                            }
+//                        }
+//                    }
                 }
                 .searchable(text: $vm.searchText)
             }

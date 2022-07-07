@@ -10,12 +10,11 @@ import Foundation
 @MainActor
 final class ViewModel: ObservableObject {
     
-    @Published var pokemonList = [Pokemon]()
-    @Published var pokemonDetails: DetailPokemon?
-//    @Published var pokemonImage: PokemonSprites?
-//    @Published var pokemonSprite = ""
-    @Published var searchText = ""
-    @Published var selector = 0 {
+     @Published var pokemonList = [Pokemon]()
+     @Published var pokemonDetails: DetailPokemon?
+//     @Published var next = ""
+     @Published var searchText = ""
+     @Published var selector = 0 {
         didSet {
             if selector == 0 {
                 sortList()
@@ -45,23 +44,12 @@ final class ViewModel: ObservableObject {
         return 0
     }
     
-    //TODO: I have to change this func since getDetailedPokemon will change
     func getDetails(pokemon: Pokemon) {
         let id = getPokemonIndex(pokemon: pokemon)
-        
         Task {
             await getDetailedPokemon(id: id)
         }
     }
-    
-    
-    //    func getMoves(pokemon: Pokemon) {
-    //        let id = getPokemonIndex(pokemon: pokemon)
-    //
-    //        Task {
-    //            await getPokemonMoves(id: id)
-    //        }
-    //    }
     
     func formatHW(value: Int) -> String {
         let dValue = Double(value)
@@ -81,22 +69,32 @@ final class ViewModel: ObservableObject {
             }
         }
     }
+    
+//    func nextPage(page: Int) {
+//        Task {
+//            await getPokemon(page: page, next: next)
+//        }
+//    }
+//    
+//    func previousPage(page: Int) {
+//        Task {
+//            await getPokemon(page: page, next: next)
+//        }
+//    }
 }
 
 extension ViewModel {
-    
     func getPokemon(page: Int) async {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?page=\(page)") else {
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=151") else {
             print("I can't fetch pokemon's data")
             return
         }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            if let decoderResponse = try? JSONDecoder().decode(PokemonList.self, from: data) {
-                pokemonList = decoderResponse.results
-            } else {
-                print("oh nooo")
-            }
+            
+            let decoderResponse = try JSONDecoder().decode(PokemonList.self, from: data)
+            pokemonList = decoderResponse.results
+//            self.next = decoderResponse.next
         } catch {
             print("Data isn't valid")
         }
@@ -109,14 +107,8 @@ extension ViewModel {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            if let decoderResponse = try? JSONDecoder().decode(DetailPokemon.self, from: data) {
-                pokemonDetails = decoderResponse
-                //                pokemonImage = decoderResponse.sprites
-                //                pokemonImage?.front_default = pokemonSprite
-                //              pokemonMovesName = decoderResponse.moves
-            } else {
-                print("oh nooo 2")
-            }
+            let decoderResponse = try JSONDecoder().decode(DetailPokemon.self, from: data)
+            pokemonDetails = decoderResponse
         } catch  {
             print("Data isn't valid")
         }

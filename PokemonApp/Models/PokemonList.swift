@@ -15,10 +15,9 @@ struct PokemonList: Codable {
 }
 // MARK: - Pokemon
 struct Pokemon: Codable, Identifiable, Equatable {
-    let id = UUID()
+    let id = UUID()     // Può diventare un Int per matcharlo con l'id di DetailPokemon?
     var name: String
     var url: String
-    
     static var samplePokemon = Pokemon(name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4/")
 }
 
@@ -27,7 +26,7 @@ struct DetailPokemon: Codable {
     let id: Int
     let height: Int
     let weight: Int
-//    let moves: [Move]
+    //    let moves: [Move]
     let species: Species
     var sprites: PokemonSprites
 }
