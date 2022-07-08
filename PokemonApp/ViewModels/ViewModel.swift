@@ -12,17 +12,16 @@ final class ViewModel: ObservableObject {
     
      @Published var pokemonList = [Pokemon]()
      @Published var pokemonDetails: DetailPokemon?
-//     @Published var next = ""
      @Published var searchText = ""
-     @Published var selector = 0 {
-        didSet {
-            if selector == 0 {
-                sortList()
-            } else {
-                sortList(ascending: true)
-            }
-        }
-    }
+//     @Published var selector = 0 {
+//        didSet {
+//            if selector == 0 {
+//                sortList()
+//            } else {
+//                sortList(ascending: true)
+//            }
+//        }
+//    }
     
     var filteredPokemon: [Pokemon] {
         return searchText == "" ? pokemonList : pokemonList.filter {
@@ -33,7 +32,7 @@ final class ViewModel: ObservableObject {
     init() {
         Task {
             await getPokemon(page: 1)
-            sortList()
+//            sortList()
         }
     }
     
@@ -58,32 +57,22 @@ final class ViewModel: ObservableObject {
         return string
     }
     
-    func sortList(ascending: Bool = false) {
-        if !ascending {
-            self.pokemonList.sort {
-                $0.name.lowercased() < $1.name.lowercased()
-            }
-        } else {
-            self.pokemonList.sort {
-                $0.name.lowercased() > $1.name.lowercased()
-            }
-        }
-    }
-    
-//    func nextPage(page: Int) {
-//        Task {
-//            await getPokemon(page: page, next: next)
-//        }
-//    }
-//    
-//    func previousPage(page: Int) {
-//        Task {
-//            await getPokemon(page: page, next: next)
+//FIXME: The function only sorts the pokemon names and not the detailed view
+//    func sortList(ascending: Bool = false) {
+//        if !ascending {
+//            self.pokemonList.sort {
+//                $0.name.lowercased() < $1.name.lowercased()
+//            }
+//        } else {
+//            self.pokemonList.sort {
+//                $0.name.lowercased() > $1.name.lowercased()
+//            }
 //        }
 //    }
 }
 
 extension ViewModel {
+    
     func getPokemon(page: Int) async {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=151") else {
             print("I can't fetch pokemon's data")
@@ -94,7 +83,7 @@ extension ViewModel {
             
             let decoderResponse = try JSONDecoder().decode(PokemonList.self, from: data)
             pokemonList = decoderResponse.results
-//            self.next = decoderResponse.next
+
         } catch {
             print("Data isn't valid")
         }
