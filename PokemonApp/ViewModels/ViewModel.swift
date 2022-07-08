@@ -7,15 +7,14 @@
 
 import Foundation
 
-
+@MainActor
 final class ViewModel: ObservableObject {
-    //    private let pokemonManager = PokemonManager()
-    @Published var pokemonList = [Pokemon]()
-    @Published var pokemonMoves: Moves?
-    @Published var pokemonMovesName = [Move]()
-    @Published var pokemonDetails: DetailPokemon?
-    @Published var searchText = ""
-    @Published var selector = 0 {
+    
+     @Published var pokemonList = [Pokemon]()
+     @Published var pokemonDetails: DetailPokemon?
+//     @Published var next = ""
+     @Published var searchText = ""
+     @Published var selector = 0 {
         didSet {
             if selector == 0 {
                 sortList()
@@ -25,23 +24,19 @@ final class ViewModel: ObservableObject {
         }
     }
     
-    //   It's ok, the only case i should change it is if something change due to the refactoring
     var filteredPokemon: [Pokemon] {
         return searchText == "" ? pokemonList : pokemonList.filter {
             $0.name.contains(searchText.lowercased())
         }
     }
     
-    // FIXME: I have to fix data models
-
     init() {
         Task {
-            await getPokemon()
+            await getPokemon(page: 1)
             sortList()
         }
     }
     
-    //    It could be ok
     func getPokemonIndex(pokemon: Pokemon) -> Int {
         if let index = self.pokemonList.firstIndex(of: pokemon) {
             return index + 1
@@ -49,23 +44,13 @@ final class ViewModel: ObservableObject {
         return 0
     }
     
-    //TODO: I have to change this func since getDetailedPokemon will change
     func getDetails(pokemon: Pokemon) {
         let id = getPokemonIndex(pokemon: pokemon)
-        
         Task {
             await getDetailedPokemon(id: id)
         }
     }
     
-    func getMoves(pokemon: Pokemon) {
-        let id = getPokemonIndex(pokemon: pokemon)
-        
-        Task {
-            await getPokemonMoves(id: id)
-        }
-    }
-    //Formatter for height and weight is ok
     func formatHW(value: Int) -> String {
         let dValue = Double(value)
         let string = String(format: "%.2f", dValue / 10)
@@ -73,7 +58,6 @@ final class ViewModel: ObservableObject {
         return string
     }
     
-    //  This func is ok and i could reuse it changing something as consequence of the refactoring
     func sortList(ascending: Bool = false) {
         if !ascending {
             self.pokemonList.sort {
@@ -85,30 +69,37 @@ final class ViewModel: ObservableObject {
             }
         }
     }
+    
+//    func nextPage(page: Int) {
+//        Task {
+//            await getPokemon(page: page, next: next)
+//        }
+//    }
+//    
+//    func previousPage(page: Int) {
+//        Task {
+//            await getPokemon(page: page, next: next)
+//        }
+//    }
 }
 
 extension ViewModel {
-    //    Manager
-    @MainActor
-    func getPokemon() async {
+    func getPokemon(page: Int) async {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=151") else {
             print("I can't fetch pokemon's data")
             return
         }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            if let decoderResponse = try? JSONDecoder().decode(PokemonList.self, from: data) {
-              pokemonList = decoderResponse.results
-            } else {
-                print("oh nooo")
-            }
+            
+            let decoderResponse = try JSONDecoder().decode(PokemonList.self, from: data)
+            pokemonList = decoderResponse.results
+//            self.next = decoderResponse.next
         } catch {
             print("Data isn't valid")
         }
     }
     
-    //    Manager
-    @MainActor
     func getDetailedPokemon(id: Int) async {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else {
             return
@@ -116,31 +107,9 @@ extension ViewModel {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            if let decoderResponse = try? JSONDecoder().decode(DetailPokemon.self, from: data) {
-                pokemonDetails = decoderResponse
-            } else {
-                print("oh nooo 2")
-            }
+            let decoderResponse = try JSONDecoder().decode(DetailPokemon.self, from: data)
+            pokemonDetails = decoderResponse
         } catch  {
-            print("Data isn't valid")
-        }
-    }
-    
-    @MainActor
-    func getPokemonMoves(id: Int) async {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else {
-            print("something doesn't work")
-            return
-        }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            if let decoderResponse = try? JSONDecoder().decode(Moves.self, from: data) {
-                pokemonMovesName = decoderResponse.moves
-            } else {
-                print("I can't find moves")
-            }
-        } catch {
             print("Data isn't valid")
         }
     }

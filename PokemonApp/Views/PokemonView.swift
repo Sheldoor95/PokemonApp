@@ -32,6 +32,7 @@ struct PokemonView: View {
                 .font(.system(size: 15, weight: .regular, design: .monospaced))
                 .padding(.bottom, 20)
         }
+        
     }
 }
 

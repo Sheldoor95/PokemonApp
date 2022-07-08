@@ -13,9 +13,9 @@
 		1F119EB9286A3E640073B7C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F119EB8286A3E640073B7C2 /* Preview Assets.xcassets */; };
 		1F42CB5F286B5BAE003C9E9C /* PokemonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42CB5E286B5BAE003C9E9C /* PokemonList.swift */; };
 		1F42CB62286B5DE5003C9E9C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42CB61286B5DE5003C9E9C /* ViewModel.swift */; };
-		1F42CB65286B5E51003C9E9C /* PokemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42CB64286B5E51003C9E9C /* PokemonManager.swift */; };
 		1F42CB68286B6916003C9E9C /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42CB67286B6916003C9E9C /* PokemonDetailView.swift */; };
 		1F42CB6A286B6CE6003C9E9C /* PokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42CB69286B6CE6003C9E9C /* PokemonView.swift */; };
+		1FDD9DFF2874516100B089FB /* PokemonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD9DFE2874516100B089FB /* PokemonImages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +26,10 @@
 		1F119EB8286A3E640073B7C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1F42CB5E286B5BAE003C9E9C /* PokemonList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonList.swift; sourceTree = "<group>"; };
 		1F42CB61286B5DE5003C9E9C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		1F42CB64286B5E51003C9E9C /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
 		1F42CB67286B6916003C9E9C /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		1F42CB69286B6CE6003C9E9C /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
+		1FDD9DFE2874516100B089FB /* PokemonImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImages.swift; sourceTree = "<group>"; };
+		1FDD9E002874A8ED00B089FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +62,11 @@
 		1F119EB0286A3E630073B7C2 /* PokemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				1FDD9E002874A8ED00B089FB /* Info.plist */,
 				1F119EB1286A3E630073B7C2 /* PokemonApp.swift */,
 				1F42CB66286B67E0003C9E9C /* Views */,
 				1F42CB60286B5DBD003C9E9C /* ViewModels */,
 				1F42CB5D286B5B3F003C9E9C /* Models */,
-				1F42CB63286B5E30003C9E9C /* Manager */,
 				1F119EB5286A3E640073B7C2 /* Assets.xcassets */,
 				1F119EB7286A3E640073B7C2 /* Preview Content */,
 			);
@@ -92,16 +93,9 @@
 			isa = PBXGroup;
 			children = (
 				1F42CB61286B5DE5003C9E9C /* ViewModel.swift */,
+				1FDD9DFE2874516100B089FB /* PokemonImages.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		1F42CB63286B5E30003C9E9C /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				1F42CB64286B5E51003C9E9C /* PokemonManager.swift */,
-			);
-			path = Manager;
 			sourceTree = "<group>";
 		};
 		1F42CB66286B67E0003C9E9C /* Views */ = {
@@ -186,9 +180,9 @@
 			files = (
 				1F42CB6A286B6CE6003C9E9C /* PokemonView.swift in Sources */,
 				1F42CB62286B5DE5003C9E9C /* ViewModel.swift in Sources */,
-				1F42CB65286B5E51003C9E9C /* PokemonManager.swift in Sources */,
 				1F119EB4286A3E630073B7C2 /* ContentView.swift in Sources */,
 				1F42CB5F286B5BAE003C9E9C /* PokemonList.swift in Sources */,
+				1FDD9DFF2874516100B089FB /* PokemonImages.swift in Sources */,
 				1F42CB68286B6916003C9E9C /* PokemonDetailView.swift in Sources */,
 				1F119EB2286A3E630073B7C2 /* PokemonApp.swift in Sources */,
 			);
@@ -322,6 +316,7 @@
 				DEVELOPMENT_TEAM = R428Q53J74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -351,6 +346,7 @@
 				DEVELOPMENT_TEAM = R428Q53J74;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PokemonApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
